@@ -1,0 +1,30 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #1a252f;
+  color: white;
+  border-bottom: 2px solid #2c3e50;
+}
+.app-title {
+  font-size: 1.5em;
+}
+.header-buttons button {
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.simulate-btn {
+  background-color: #27ae60;
+  color: white;
+}
+.views {
+  background-color: gray;
+  border-radius: 5px;
+  display: inline-flex;
+}
+

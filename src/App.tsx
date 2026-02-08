@@ -1,8 +1,40 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Xarrow, { Xwrapper } from "react-xarrows";
 import "./App.css";
 import "@wokwi/elements";
 import Header from "./components/Header";
+
+// --- TYPESCRIPT FIXES ---
+// This tells TypeScript that these "wokwi-" tags are valid HTML elements
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "wokwi-arduino-uno": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
+      "wokwi-led": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & { color?: string; value?: boolean; label?: string };
+      "wokwi-pushbutton": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & { color?: string; label?: string };
+      "wokwi-resistor": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
+    }
+  }
+}
+
+// Define what a Component looks like
+interface CanvasComponent {
+  id: number;
+  type: string;
+  position: { x: number; y: number };
+}
 
 const COMPONENT_PALETTE = [
   "wokwi-arduino-uno",
@@ -11,10 +43,13 @@ const COMPONENT_PALETTE = [
 ];
 
 function App() {
-  const [canvasComponents, setCanvasComponents] = useState([]);
+  // Explicitly tell useState that this is an array of CanvasComponents
+  const [canvasComponents, setCanvasComponents] = useState<CanvasComponent[]>(
+    [],
+  );
 
   const [showCode, setShowCode] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false); // simulate mode
+  const [isPlaying, setIsPlaying] = useState(false);
   const [wiresVisible, setWiresVisible] = useState(false);
   const [isBtnPressed, setIsBtnPressed] = useState(false);
   const [code, setCode] = useState("");
@@ -51,28 +86,34 @@ function App() {
     setCode(`${setupCode}\n${loopCode}`);
   }, [canvasComponents]);
 
-  const handleRightClick = (event, componentId) => {
+  const handleRightClick = (event: React.MouseEvent, componentId: number) => {
     event.preventDefault();
-    if (isPlaying) return; // if is playing then prevent deleting
+    if (isPlaying) return;
     setCanvasComponents((prev) => prev.filter((c) => c.id !== componentId));
   };
 
-  const onDragStartSidebar = (event, componentType) => {
+  const onDragStartSidebar = (
+    event: React.DragEvent,
+    componentType: string,
+  ) => {
     event.dataTransfer.setData("componentType", componentType);
   };
 
-  const onDragStartCanvas = (event, component) => {
-    event.dataTransfer.setData("componentId", component.id);
+  const onDragStartCanvas = (
+    event: React.DragEvent,
+    component: CanvasComponent,
+  ) => {
+    event.dataTransfer.setData("componentId", component.id.toString());
   };
 
-  const onDrop = (event) => {
+  const onDrop = (event: React.DragEvent) => {
     event.preventDefault();
     if (isPlaying) return;
 
     const canvasRect = event.currentTarget.getBoundingClientRect();
     const movedComponentId = event.dataTransfer.getData("componentId");
 
-    const getSnappedCoords = (clientX, clientY) => {
+    const getSnappedCoords = (clientX: number, clientY: number) => {
       const x = clientX - canvasRect.left;
       const y = clientY - canvasRect.top;
       const gridSize = 20;
@@ -110,7 +151,7 @@ function App() {
     }
   };
 
-  const onDragOver = (event) => {
+  const onDragOver = (event: React.DragEvent) => {
     event.preventDefault();
   };
 
@@ -175,7 +216,7 @@ function App() {
             <Xwrapper>
               {canvasComponents.map((component) => {
                 const style = {
-                  position: "absolute",
+                  position: "absolute" as const, // TS needs "as const" for absolute
                   left: `${component.position.x}px`,
                   top: `${component.position.y}px`,
                   zIndex: 1,

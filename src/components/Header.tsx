@@ -1,5 +1,12 @@
-import React from "react";
 import "./Header.css";
+
+interface HeaderProps {
+  isPlaying: boolean;
+  onTogglePlay: () => void;
+  showCode: boolean;
+  onToggleCode: (show: boolean) => void;
+  hasComponents: boolean;
+}
 
 function Header({
   isPlaying,
@@ -7,7 +14,7 @@ function Header({
   showCode,
   onToggleCode,
   hasComponents,
-}) {
+}: HeaderProps) {
   return (
     <header className="app-header">
       <div className="logo-section">
@@ -30,7 +37,6 @@ function Header({
           </button>
         </div>
 
-        {/* start stop */}
         {isPlaying ? (
           <button className="action-btn stop-btn" onClick={onTogglePlay}>
             ⏹ Stop Simulation
@@ -39,7 +45,7 @@ function Header({
           <button
             className="action-btn start-btn"
             onClick={onTogglePlay}
-            disabled={!hasComponents} //not allowed if no components on canvas
+            disabled={!hasComponents} // disable if there are no components to simulate
           >
             ▶ Start Simulation
           </button>

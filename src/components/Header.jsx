@@ -1,20 +1,12 @@
 import "./Header.css";
 
-interface HeaderProps {
-  isPlaying: boolean;
-  onTogglePlay: () => void;
-  showCode: boolean;
-  onToggleCode: (show: boolean) => void;
-  hasComponents: boolean;
-}
-
 function Header({
   isPlaying,
   onTogglePlay,
   showCode,
   onToggleCode,
   hasComponents,
-}: HeaderProps) {
+}) {
   return (
     <header className="app-header">
       <div className="logo-section">
@@ -45,7 +37,7 @@ function Header({
           <button
             className="action-btn start-btn"
             onClick={onTogglePlay}
-            disabled={!hasComponents} // disable if there are no components to simulate
+            disabled={!hasComponents}
           >
             ▶ Start Simulation
           </button>

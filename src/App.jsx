@@ -1,37 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Xarrow, { Xwrapper } from "react-xarrows";
 import "./App.css";
 import "@wokwi/elements";
 import Header from "./components/Header";
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      "wokwi-arduino-uno": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
-      "wokwi-led": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      > & { color?: string; value?: boolean; label?: string };
-      "wokwi-pushbutton": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      > & { color?: string; label?: string };
-      "wokwi-resistor": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
-    }
-  }
-}
-
-interface CanvasComponent {
-  id: number;
-  type: string;
-  position: { x: number; y: number };
-}
 
 const COMPONENT_PALETTE = [
   "wokwi-arduino-uno",
@@ -40,9 +11,7 @@ const COMPONENT_PALETTE = [
 ];
 
 function App() {
-  const [canvasComponents, setCanvasComponents] = useState<CanvasComponent[]>(
-    [],
-  );
+  const [canvasComponents, setCanvasComponents] = useState([]);
 
   const [showCode, setShowCode] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -50,7 +19,6 @@ function App() {
   const [isBtnPressed, setIsBtnPressed] = useState(false);
   const [code, setCode] = useState("");
 
-  // auto code generation
   useEffect(() => {
     let setupCode = "void setup() {\n";
     let loopCode = "void loop() {\n";
@@ -82,34 +50,28 @@ function App() {
     setCode(`${setupCode}\n${loopCode}`);
   }, [canvasComponents]);
 
-  const handleRightClick = (event: React.MouseEvent, componentId: number) => {
+  const handleRightClick = (event, componentId) => {
     event.preventDefault();
     if (isPlaying) return;
     setCanvasComponents((prev) => prev.filter((c) => c.id !== componentId));
   };
 
-  const onDragStartSidebar = (
-    event: React.DragEvent,
-    componentType: string,
-  ) => {
+  const onDragStartSidebar = (event, componentType) => {
     event.dataTransfer.setData("componentType", componentType);
   };
 
-  const onDragStartCanvas = (
-    event: React.DragEvent,
-    component: CanvasComponent,
-  ) => {
+  const onDragStartCanvas = (event, component) => {
     event.dataTransfer.setData("componentId", component.id.toString());
   };
 
-  const onDrop = (event: React.DragEvent) => {
+  const onDrop = (event) => {
     event.preventDefault();
     if (isPlaying) return;
 
     const canvasRect = event.currentTarget.getBoundingClientRect();
     const movedComponentId = event.dataTransfer.getData("componentId");
 
-    const getSnappedCoords = (clientX: number, clientY: number) => {
+    const getSnappedCoords = (clientX, clientY) => {
       const x = clientX - canvasRect.left;
       const y = clientY - canvasRect.top;
       const gridSize = 20;
@@ -147,7 +109,7 @@ function App() {
     }
   };
 
-  const onDragOver = (event: React.DragEvent) => {
+  const onDragOver = (event) => {
     event.preventDefault();
   };
 
@@ -198,7 +160,6 @@ function App() {
               {wiresVisible ? "🔌 Hide Wires" : "🔌 Connect Wires"}
             </button>
 
-            {/* ux friendly text */}
             {canvasComponents.length === 0 && (
               <h6 className="canvas-placeholder">Drag components here...</h6>
             )}
@@ -212,7 +173,7 @@ function App() {
             <Xwrapper>
               {canvasComponents.map((component) => {
                 const style = {
-                  position: "absolute" as const,
+                  position: "absolute",
                   left: `${component.position.x}px`,
                   top: `${component.position.y}px`,
                   zIndex: 1,
@@ -234,7 +195,6 @@ function App() {
                     onMouseUp={() => setIsBtnPressed(false)}
                     onMouseLeave={() => setIsBtnPressed(false)}
                   >
-                    {/* arduino */}
                     {component.type === "wokwi-arduino-uno" && (
                       <div
                         style={{
@@ -245,35 +205,30 @@ function App() {
                       >
                         <wokwi-arduino-uno />
 
-                        {/* d10 location arduino */}
                         <div
                           id={`pin-D10-${component.id}`}
                           className="ghost-pin"
                           style={{ left: "56%", top: "4%" }}
                         />
 
-                        {/* D2 location atduino */}
                         <div
                           id={`pin-D2-${component.id}`}
                           className="ghost-pin"
                           style={{ left: "86%", top: "4%" }}
                         />
 
-                        {/* arduino top gnd location */}
                         <div
                           id={`pin-GND-TOP-${component.id}`}
                           className="ghost-pin"
                           style={{ left: "42%", top: "4%" }}
                         />
 
-                        {/* arduino gnd location */}
                         <div
                           id={`pin-GND-BOT-${component.id}`}
                           className="ghost-pin"
                           style={{ left: "62%", top: "94%" }}
                         />
 
-                        {/* 3.3v location arduino */}
                         <div
                           id={`pin-VCC-BOT-${component.id}`}
                           className="ghost-pin"
@@ -282,7 +237,6 @@ function App() {
                       </div>
                     )}
 
-                    {/* led */}
                     {component.type === "wokwi-led" && (
                       <div style={{ position: "relative" }}>
                         <wokwi-led color="red" value={isLedOn} label="10" />
@@ -299,7 +253,6 @@ function App() {
                       </div>
                     )}
 
-                    {/* button  */}
                     {component.type === "wokwi-pushbutton" && (
                       <div style={{ position: "relative" }}>
                         <wokwi-pushbutton color="green" label="2" />
@@ -324,10 +277,8 @@ function App() {
                 );
               })}
 
-              {/*  Pin wiring and styling  */}
               {wiresVisible && arduino && led && (
                 <>
-                  {/* blue wire for led / Arduino D10 */}
                   <Xarrow
                     start={`pin-D10-${arduino.id}`}
                     end={`led-anode-${led.id}`}
@@ -340,7 +291,6 @@ function App() {
                     zIndex={100}
                   />
 
-                  {/* black wire for led gnd */}
                   <Xarrow
                     start={`led-cathode-${led.id}`}
                     end={`pin-GND-TOP-${arduino.id}`}
@@ -357,7 +307,6 @@ function App() {
 
               {wiresVisible && arduino && btn && (
                 <>
-                  {/* yellow wire for button / arduino d2 */}
                   <Xarrow
                     start={`pin-D2-${arduino.id}`}
                     end={`btn-top-${btn.id}`}
@@ -365,12 +314,11 @@ function App() {
                     endAnchor="middle"
                     color="#f1c40f"
                     strokeWidth={4}
-                    path="curved"
+                    path="smooth"
                     showHead={false}
                     zIndex={100}
                   />
 
-                  {/* black wire for button gnd */}
                   <Xarrow
                     start={`btn-gnd-${btn.id}`}
                     end={`pin-GND-BOT-${arduino.id}`}
@@ -383,7 +331,6 @@ function App() {
                     zIndex={100}
                   />
 
-                  {/* red wire for button vcc (3.3v) */}
                   <Xarrow
                     start={`btn-vcc-${btn.id}`}
                     end={`pin-VCC-BOT-${arduino.id}`}

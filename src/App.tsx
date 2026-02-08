@@ -4,8 +4,6 @@ import "./App.css";
 import "@wokwi/elements";
 import Header from "./components/Header";
 
-// --- TYPESCRIPT FIXES ---
-// This tells TypeScript that these "wokwi-" tags are valid HTML elements
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -29,7 +27,6 @@ declare global {
   }
 }
 
-// Define what a Component looks like
 interface CanvasComponent {
   id: number;
   type: string;
@@ -43,7 +40,6 @@ const COMPONENT_PALETTE = [
 ];
 
 function App() {
-  // Explicitly tell useState that this is an array of CanvasComponents
   const [canvasComponents, setCanvasComponents] = useState<CanvasComponent[]>(
     [],
   );
@@ -216,7 +212,7 @@ function App() {
             <Xwrapper>
               {canvasComponents.map((component) => {
                 const style = {
-                  position: "absolute" as const, // TS needs "as const" for absolute
+                  position: "absolute" as const,
                   left: `${component.position.x}px`,
                   top: `${component.position.y}px`,
                   zIndex: 1,

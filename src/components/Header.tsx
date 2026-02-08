@@ -1,22 +1,49 @@
 import React from "react";
 import "./Header.css";
 
-function Header() {
+function Header({
+  isPlaying,
+  onTogglePlay,
+  showCode,
+  onToggleCode,
+  hasComponents,
+}) {
   return (
     <header className="app-header">
-      <h1 className="app-title">OSHW-Kiwi 🥝</h1>
-      <div className="header-buttons">
-        <div className="views">
-          <button onClick={console.log("Design View")}>Design View</button>
-          <button onClick={console.log("Code View")}>Code View</button>
+      <div className="logo-section">
+        <h1 className="app-title">OSHW-Kiwi 🥝</h1>
+      </div>
+
+      <div className="toolbar-section">
+        <div className="view-toggle">
+          <button
+            className={`tool-btn ${!showCode ? "active" : ""}`}
+            onClick={() => onToggleCode(false)}
+          >
+            Component View
+          </button>
+          <button
+            className={`tool-btn ${showCode ? "active" : ""}`}
+            onClick={() => onToggleCode(true)}
+          >
+            Code View
+          </button>
         </div>
-        <button
-          onClick={console.log("Simulating Circuit")}
-          className="simulate-btn"
-        >
-          ➡️ Simulate
-        </button>
-        <button onClick={console.log("Uploading COde")}>Upload Code</button>
+
+        {/* start stop */}
+        {isPlaying ? (
+          <button className="action-btn stop-btn" onClick={onTogglePlay}>
+            ⏹ Stop Simulation
+          </button>
+        ) : (
+          <button
+            className="action-btn start-btn"
+            onClick={onTogglePlay}
+            disabled={!hasComponents} //not allowed if no components on canvas
+          >
+            ▶ Start Simulation
+          </button>
+        )}
       </div>
     </header>
   );

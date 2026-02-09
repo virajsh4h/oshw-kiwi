@@ -11,11 +11,11 @@
 </div>
 
 <div align="center">
-  <a href="https://github.com/your-username/oshw-kiwi/stargazers">
-    <img src="https://img.shields.io/github/stars/your-username/oshw-kiwi?style=for-the-badge&logo=github&color=orange" alt="Stars">
+  <a href="https://github.com/virajsh4h/oshw-kiwi/stargazers">
+    <img src="https://img.shields.io/github/stars/virajsh4h/oshw-kiwi?style=for-the-badge&logo=github&color=orange" alt="Stars">
   </a>
-  <a href="https://github.com/your-username/oshw-kiwi/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/your-username/oshw-kiwi?style=for-the-badge&logo=open-source-initiative&color=blue" alt="License">
+  <a href="https://github.com/virajsh4h/oshw-kiwi/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/virajsh4h/oshw-kiwi?style=for-the-badge&logo=open-source-initiative&color=blue" alt="License">
   </a>
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">

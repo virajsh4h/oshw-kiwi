@@ -265,38 +265,43 @@ function App() {
                     {/* led */}
                     {component.type === "wokwi-led" && (
                       <div style={{ position: "relative" }}>
-                        <wokwi-led color="red" value={isLedOn} />
-                        <select
-                          className="pin-selector"
-                          value={pinAssignments.ledPin}
-                          onChange={(e) =>
-                            setPinAssignments({
-                              ...pinAssignments,
-                              ledPin: e.target.value,
-                            })
-                          }
-                          onMouseDown={(e) => e.stopPropagation()}
-                        >
-                          {ALL_PINS.map((pin) => (
-                            <option
-                              key={pin}
-                              value={pin}
-                              disabled={pin === pinAssignments.btnPin}
-                            >
-                              D{pin}
-                            </option>
-                          ))}
-                        </select>
-                        <div
-                          id={`led-anode-${component.id}`}
-                          className="ghost-pin"
-                          style={{ left: "25px", bottom: "4px" }}
-                        />
-                        <div
-                          id={`led-cathode-${component.id}`}
-                          className="ghost-pin"
-                          style={{ left: "15px", bottom: "-25px" }}
-                        />
+                        <div className="component-wrapper">
+                          <wokwi-led color="red" value={isLedOn} />
+                          <span className="tooltip">
+                            Remember to add a resistor! (e.g., 220Ω)
+                          </span>
+                          <select
+                            className="pin-selector"
+                            value={pinAssignments.ledPin}
+                            onChange={(e) =>
+                              setPinAssignments({
+                                ...pinAssignments,
+                                ledPin: e.target.value,
+                              })
+                            }
+                            onMouseDown={(e) => e.stopPropagation()}
+                          >
+                            {ALL_PINS.map((pin) => (
+                              <option
+                                key={pin}
+                                value={pin}
+                                disabled={pin === pinAssignments.btnPin}
+                              >
+                                D{pin}
+                              </option>
+                            ))}
+                          </select>
+                          <div
+                            id={`led-anode-${component.id}`}
+                            className="ghost-pin"
+                            style={{ left: "25px", bottom: "4px" }}
+                          />
+                          <div
+                            id={`led-cathode-${component.id}`}
+                            className="ghost-pin"
+                            style={{ left: "15px", bottom: "-25px" }}
+                          />
+                        </div>
                       </div>
                     )}
                     {/* button  */}

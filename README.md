@@ -14,9 +14,9 @@
   <a href="https://github.com/virajsh4h/oshw-kiwi/stargazers">
     <img src="https://img.shields.io/github/stars/virajsh4h/oshw-kiwi?style=for-the-badge&logo=github&color=orange" alt="Stars">
   </a>
-  <a href="https://github.com/virajsh4h/oshw-kiwi/blob/main/LICENSE">
+  <!-- <a href="https://github.com/virajsh4h/oshw-kiwi/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/virajsh4h/oshw-kiwi?style=for-the-badge&logo=open-source-initiative&color=blue" alt="License">
-  </a>
+  </a> -->
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
   
@@ -28,7 +28,7 @@
 
 This project was built to be interactive! The best way to understand it is to see it in action, or better yet: use it yourself **( [Click here to access web version](https://oshw-kiwi.vercel.app/) )**.
 
-<a href="https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE" target="_blank">
+<a href="https://drive.google.com/file/d/1Uw1hS1XrmYLWQhA8FXFnhxi0nKKqVw51/view?usp=sharing" target="_blank">
   <img src="./public/oshw-kiwi-demo.png" alt="OSHW-Kiwi Demo Screenshot" width="100%">
 </a>
 

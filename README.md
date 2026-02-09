@@ -26,7 +26,7 @@
 
 ### 🎥 Live Demo & Video Walkthrough
 
-This project was built to be interactive! The best way to understand it is to see it in action, or better yet: use it ([Demo](https://oshw-kiwi.vercel.app/)).
+This project was built to be interactive! The best way to understand it is to see it in action, or better yet: use it yourself **( [Click here to access web version](https://oshw-kiwi.vercel.app/) )**.
 
 <a href="https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE" target="_blank">
   <img src="./public/oshw-kiwi-demo.png" alt="OSHW-Kiwi Demo Screenshot" width="100%">
